@@ -1,4 +1,4 @@
-package com.danal.assignment;
+package com.danal.prototype;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

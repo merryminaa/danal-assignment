@@ -1,4 +1,4 @@
-package com.danal.assignment;
+package com.danal.prototype;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
