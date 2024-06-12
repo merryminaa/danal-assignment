@@ -12,7 +12,6 @@ public class CustomFieldSetMapper implements FieldSetMapper<CommercialDistrictDt
 
     @Override
     public CommercialDistrictDto mapFieldSet(FieldSet fieldSet) {
-        log.info("Mapping fieldSet: {}", fieldSet);
         return CommercialDistrictDto.builder()
                 .bizNo(fieldSet.readString("상가업소번호"))
                 .bizName(fieldSet.readString("상호명"))

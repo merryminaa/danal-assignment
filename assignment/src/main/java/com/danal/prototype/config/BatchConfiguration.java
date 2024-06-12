@@ -3,6 +3,8 @@ package com.danal.prototype.config;
 import com.danal.prototype.domain.CommercialDistrictDto;
 import com.danal.prototype.job.CsvReader;
 import com.danal.prototype.job.CsvScheduleWriter;
+import com.danal.prototype.listener.CustomJobExecutionListener;
+import com.danal.prototype.listener.CustomStepExecutionListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -18,18 +20,20 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 public class BatchConfiguration {
 
-    private static final int chunkSize = 100;
+    private static final int chunkSize = 1000;
     private final CsvReader csvReader;
     private final CsvScheduleWriter csvScheduleWriter;
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
+    private final CustomJobExecutionListener customJobExecutionListener;
+    private final CustomStepExecutionListener customStepExecutionListener;
 
 
     @Bean
     public Job csvFileItemReaderJob() {
         return new JobBuilder("csvFileItemReaderJob", jobRepository)
                 .incrementer(new RunIdIncrementer()) // 새로운 Job Parameters 생성
-//                .listener(jobCompletionNotificationListener)
+                .listener(customJobExecutionListener)
                 .start(csvFileItemReaderStep())
                 .build();
     }
@@ -40,7 +44,7 @@ public class BatchConfiguration {
                 .<CommercialDistrictDto, CommercialDistrictDto>chunk(chunkSize, transactionManager)
                 .reader(csvReader.csvScheduleReader())
                 .writer(csvScheduleWriter)
-//                .listener(stepCompletionNotificationListener)
+                .listener(customStepExecutionListener)
                 .build();
     }
 

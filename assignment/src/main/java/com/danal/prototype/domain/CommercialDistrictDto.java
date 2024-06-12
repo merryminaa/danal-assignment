@@ -46,7 +46,6 @@ public class CommercialDistrictDto {
                 .detailClassCodeName(detailClassCodeName)
                 .standardClassCode(standardClassCode)
                 .standardClassCodeName(standardClassCodeName)
-                .createdAt(LocalDateTime.now())
                 .build();
     }
 
