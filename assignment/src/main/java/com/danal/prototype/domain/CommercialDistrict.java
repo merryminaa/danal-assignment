@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 
 @NoArgsConstructor
 @Getter
@@ -21,6 +23,8 @@ public class CommercialDistrict {
     private String bizNo;
 
     private String bizName;
+
+    private String branchName;
 
     private String mainClassCode;
 
@@ -38,11 +42,19 @@ public class CommercialDistrict {
 
     private String standardClassCodeName;
 
+    private LocalDateTime createdAt;
+
 
     @Builder
-    public CommercialDistrict(String bizNo, String bizName, String mainClassCode, String mainClassCodeName, String subClassCode, String subClassCodeName, String detailClassCode, String detailClassCodeName, String standardClassCode, String standardClassCodeName) {
+    public CommercialDistrict(String bizNo, String bizName, String branchName,
+                              String mainClassCode, String mainClassCodeName,
+                              String subClassCode, String subClassCodeName,
+                              String detailClassCode, String detailClassCodeName,
+                              String standardClassCode, String standardClassCodeName,
+                              LocalDateTime createdAt) {
         this.bizNo = bizNo;
         this.bizName = bizName;
+        this.branchName = branchName;
         this.mainClassCode = mainClassCode;
         this.mainClassCodeName = mainClassCodeName;
         this.subClassCode = subClassCode;
@@ -51,5 +63,6 @@ public class CommercialDistrict {
         this.detailClassCodeName = detailClassCodeName;
         this.standardClassCode = standardClassCode;
         this.standardClassCodeName = standardClassCodeName;
+        this.createdAt = createdAt;
     }
 }

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +18,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 public class BatchConfiguration {
 
-    private static final int chunkSize = 1000;
+    private static final int chunkSize = 100;
     private final CsvReader csvReader;
     private final CsvScheduleWriter csvScheduleWriter;
     private final JobRepository jobRepository;
@@ -27,6 +28,8 @@ public class BatchConfiguration {
     @Bean
     public Job csvFileItemReaderJob() {
         return new JobBuilder("csvFileItemReaderJob", jobRepository)
+                .incrementer(new RunIdIncrementer()) // 새로운 Job Parameters 생성
+//                .listener(jobCompletionNotificationListener)
                 .start(csvFileItemReaderStep())
                 .build();
     }
@@ -37,6 +40,7 @@ public class BatchConfiguration {
                 .<CommercialDistrictDto, CommercialDistrictDto>chunk(chunkSize, transactionManager)
                 .reader(csvReader.csvScheduleReader())
                 .writer(csvScheduleWriter)
+//                .listener(stepCompletionNotificationListener)
                 .build();
     }
 
