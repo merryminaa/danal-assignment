@@ -1,23 +1,20 @@
 package com.danal.prototype.job;
 
-import com.danal.prototype.CommercialDistrictRepository;
 import com.danal.prototype.domain.CommercialDistrict;
 import com.danal.prototype.domain.CommercialDistrictDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Configuration
+@Component
 @RequiredArgsConstructor
 public class CsvScheduleWriter implements ItemWriter<CommercialDistrictDto> {
-
-    private final CommercialDistrictRepository commercialDistrictRepository;
 
     private final JdbcTemplate jdbcTemplate;
 
